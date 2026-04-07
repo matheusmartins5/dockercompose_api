@@ -2,7 +2,7 @@ version: "3.8"
 services:
   php-apache:
     build: .
-    container_name: php_apache
+    container_name: php_apache_api
     ports:
       - "8080:80"
     volumes:
@@ -14,7 +14,7 @@ services:
 
   mysql:
     image: mysql:8.0
-    container_name: mysql_db
+    container_name: mysql_db_api
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -22,9 +22,10 @@ services:
       MYSQL_USER: meu_usuario
       MYSQL_PASSWORD: minha_senha
     ports:
-      - "3307:3306"
+      - "3308:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - minha-rede
 
